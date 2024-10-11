@@ -1,4 +1,7 @@
-var $jscomp = $jscomp || {}; $jscomp.scope = {}; $jscomp.createTemplateTagFirstArg = function (a) { return a.raw = a }; $jscomp.createTemplateTagFirstArgWithRaw = function (a, b) { a.raw = b; return a };
+var $jscomp = $jscomp || {
+}; $jscomp.scope = {
+  
+}; $jscomp.createTemplateTagFirstArg = function (a) { return a.raw = a }; $jscomp.createTemplateTagFirstArgWithRaw = function (a, b) { a.raw = b; return a };
 $(function () {
   $(".btn__submit").on("click", function () {
     console.log("\u540d\u5b57"); console.log($("#family__name").val()); console.log("\u540d\u524d"); console.log($("#given__name").val()); console.log("\u751f\u5e74\u6708\u65e5"); console.log($(".year").val() + "\u5e74" + $(".month").val() + "\u6708" + $(".day").val() + "\u65e5"); console.log("\u6027\u5225"); console.log($('[name="gender"]:checked').val()); console.log("\u8077\u696d"); console.log($(".occupation").val()); console.log("\u30a2\u30ab\u30a6\u30f3\u30c8\u540d");

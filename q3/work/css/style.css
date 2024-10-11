@@ -50,6 +50,7 @@
 .drawer_button .drawer_bar_third {
   top: 100%; }
 
+/*activeクラス名を付けた時*/
 .drawer_button.active .drawer_bar {
   width: 36.77px;
   left: 8px; }
@@ -70,6 +71,8 @@
 
 .drawer_button.active .drawer_close {
   display: block; }
+
+/*ここまで*/
 
 .drawer_text {
   width: 100%;
@@ -136,7 +139,9 @@
   transform: translate(-312px);
   right: auto;
   left: 0; }
-  .drawer_menu.left .drawer_nav_wrapper.open {
+
+/*openのclass名を付けた時*/
+.drawer_menu.left .drawer_nav_wrapper.open {
     transform: translate(0); }
 
 /*+++ Default Navigation CSS +++*/

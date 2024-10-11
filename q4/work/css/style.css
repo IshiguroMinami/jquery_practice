@@ -50,6 +50,7 @@
   box-sizing: border-box;
 }
 
+/*非表示*/
 .is-hidden {
   display: none;
 }
