@@ -8,15 +8,15 @@ $(function () {
       //アイテム配列の各要素を反復して各本の情報を取ってきます。
       $.each(items, function (index, item) {
         //タイトルがある場合はタイトル名、なければ"タイトル不明"
-        var title = item.title ? item.title : "タイトル不明";
+        const title = item.title ? item.title : "タイトル不明";
         //作者名がある場合はその作者名、ない場合は"作者不明”
-        var creator = item["dc:creator"] ? item["dc:creator"] : "作者不明";
+        const creator = item["dc:creator"] ? item["dc:creator"] : "作者不明";
         //出版社名がある場合はその出版社名、ない場合は"出版社不明"
-        var publisher = item["dc:publisher"] ? item["dc:publisher"][0] : "出版社不明";
+        const publisher = item["dc:publisher"] ? item["dc:publisher"][0] : "出版社不明";
         //リンクがある場合はそのリンク、ない場合は"＃”
-        var link = item.link["@id"] ? item.link["@id"] : "#";
+        const link = item.link["@id"] ? item.link["@id"] : "#";
         //各情報をHTMLリストアイテムとして作成
-        var listItem = `
+        const listItem = `
           <li class="lists-item">
             <div class="list-inner">
               <p>タイトル：${title}</p>
@@ -36,7 +36,7 @@ $(function () {
     }
   }
   //pageCountは現在のページ番号を保持するための変数 lastSearchWordは最後に検索したワードを保持するための変数
-  var pageCount = 1, lastSearchWord = "";
+  let pageCount = 1, lastSearchWord = "";
 
   //検索ボタンを押したとき
   $(".search-btn").on("click", function () {
