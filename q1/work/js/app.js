@@ -53,18 +53,18 @@ $("#q8").on({mouseenter: function(){
 //q9内のリスト項目ををクリックしたときに
 $("#q9 li").on("click",function(){
   // クリックされたリスト項目のインデックス番号（配列的な位置）を取得する
-  const q9list = $(this).index();
+  const q9List = $(this).index();
   //配列の番号をアラート表示させる
-  alert(q9list);
+  alert(q9List);
 });
 
 //q10内のリスト項目（li）がクリックされたときに
 $("#q10 li").on("click",function(){
-  //クリックされたq10のリスト項目のインデックス番号を取得し、変数aに代入する
-  const q10list = $(this).index();
-  //q11内の、インデックス番号aに該当するリスト項目（li）をコンソールに表示する
-  console.log($("#q11 li").eq(q10list));
-  //インデックス番号aに該当するq11のリスト項目に、"large-text"というクラスを追加し、文字を大きくする
-  $("#q11 li").eq(q10list).addClass("large-text")
+  //クリックされたq10のリスト項目のインデックス番号を取得し、変数q10Listに代入する
+  const q10List = $(this).index();
+  //q11内の、インデックス番号q10Listに該当するリスト項目（li）をコンソールに表示する
+  console.log($("#q11 li").eq(q10List));
+  //インデックス番号q10Listに該当するq11のリスト項目に、"large-text"というクラスを追加し、文字を大きくする
+  $("#q11 li").eq(q10List).addClass("large-text")
 })
 });

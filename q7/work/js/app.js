@@ -46,7 +46,7 @@ $(document).ready(function() {
     console.log("名字:", familyName);
     // 取得した `givenName`（名前）をコンソールに出力
     console.log("名前:", givenName);
-    // 組み立てた `birthday`（生年月日）をコンソールに出力
+    // 取得した `birthday`（生年月日）をコンソールに出力
     console.log("生年月日:", birthday);
     // 取得した `gender`（性別）をコンソールに出力
     console.log("性別:", gender);
