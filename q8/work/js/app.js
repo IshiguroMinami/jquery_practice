@@ -35,8 +35,10 @@ $(function () {
       $(".lists").before('<div class="message">検索結果が見つかりませんでした。<br>別のキーワードで検索してください。</div>');
     }
   }
-  //pageCountは現在のページ番号を保持するための変数 lastSearchWordは最後に検索したワードを保持するための変数
-  let pageCount = 1, lastSearchWord = "";
+  //pageCountは現在のページ番号を保持するための変数
+  let pageCount = 1;
+  //lastSearchWordは最後に検索したワードを保持するための変数
+  let lastSearchWord = "";
 
   //検索ボタンを押したとき
   $(".search-btn").on("click", function () {

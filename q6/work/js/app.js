@@ -2,8 +2,9 @@ $(function () {
   //セレクトボックスをクリックしたときに割り当てられた要素の変更イベントを検出
   $(".select-box").on("change", function () {
     //選択されたドロップダウンリストの値を取得し、変数 dropdownlist に格納、
-    // また、変数dropdownListには、クラスが "food-list" に割り当てられた要素のリストアイテムが格納します。
-    const dropdownList = $(this).val(), foodList = $(".food-list li");
+    const dropdownList = $(this).val();
+    // クラスが "food-list" に割り当てられた要素のリストアイテムを変数 foodList に格納
+    const foodList = $(".food-list li");
     // 変数 dropdownlist の値が "all" である場合は、
     if (dropdownList === "all") {
       //全てのリストアイテムを表示
