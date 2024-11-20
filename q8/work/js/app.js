@@ -35,6 +35,32 @@ $(function () {
       $(".lists").before('<div class="message">検索結果が見つかりませんでした。<br>別のキーワードで検索してください。</div>');
     }
   }
+  // エラー処理関数
+  function ajaxError(err) {
+    // リストをクリア
+    $(".lists").empty();
+    // 既存のメッセージを削除
+    $(".message").remove();
+    //予期せぬエラーが発生した場合に表示するメッセージを設定
+    let message = "予期せぬエラーが起きました。<br>再読み込みを行ってください。";
+    //ステータスコードが0の場合、インターネット接続の問題を示すメッセージを表示します。
+    if (err.status === 0) {
+      message = "正常に通信できませんでした。<br>インターネットの接続を確認してください。";
+    }
+    //ステータスコードが400の場合、検索キーワードが有効ではありません。1文字以上で検索してください。を表示
+    else if (err.status === 400) {
+      message = "検索キーワードが有効ではありません。<br>1文字以上で検索してください。";
+    }
+    //予期せぬエラーが起きました。再読み込みを行ってください。を表示
+    $(".lists").before(`<div class="message">${message}</div>`);
+  }
+  //成功時の処理関数
+  function ajaxSuccess(response) {
+    // 必要なデータを取得、存在しなければ空配列
+    const items = response["@graph"][0]?.items || [];
+    // 結果を表示
+    displayResults(items);
+  }
   //pageCountは現在のページ番号を保持するための変数
   let pageCount = 1;
   //lastSearchWordは最後に検索したワードを保持するための変数
@@ -43,7 +69,7 @@ $(function () {
   //検索ボタンを押したとき
   $(".search-btn").on("click", function () {
     //#search-input IDの要素から入力された値を取得し、その値を searchWord に代入します。
-    var searchWord = $("#search-input").val();
+    const searchWord = $("#search-input").val();
     //現在の検索ワードが前回の検索ワードと異なるかを確認します。
     if (searchWord !== lastSearchWord) {
       //検索ワードが変わった場合、ページ番号 pageCount を1にリセットします。
@@ -57,7 +83,6 @@ $(function () {
     else {
       pageCount++;
     }
-
     // .ajax() メソッドを使用してAjaxリクエストを送信します。
     $.ajax({
       //検索ワードとページ番号を含むURLを指定します。searchWord と pageCount の値がテンプレートリテラルで埋め込まれます。
@@ -65,32 +90,11 @@ $(function () {
       //HTTPメソッドとして GET を指定します。
       method: "GET"
     })
-    //Ajaxリクエストが成功した場合に実行されるコールバック関数を設定します。
-    .done(function (response) {
-      //response オブジェクトの ["@graph"][0].items を引数として displayResults 関数を呼び出し、検索結果を表示します。
-      displayResults(response["@graph"][0].items);
-    })
-    //Ajaxリクエストが失敗した場合に実行されるコールバック関数を設定します。
-    .fail(function (err) {
-      //リスト要素 .lists の内容をクリアします。
-      $(".lists").empty();
-      //以前のメッセージ要素を削除します。
-      $(".message").remove();
-      //ステータスコードが0の場合、インターネット接続の問題を示すメッセージを表示します。
-      if (err.status === 0) {
-        $(".lists").before('<div class="message">正常に通信できませんでした。<br>インターネットの接続を確認してください。</div>');
-      }
-      //ステータスコードが400の場合、検索キーワードが有効ではありません。1文字以上で検索してください。を表示
-      else if (err.status === 400) {
-        $(".lists").before('<div class="message">検索キーワードが有効ではありません。<br>1文字以上で検索してください。</div>');
-      }
-      //それ以外の場合、予期せぬエラーが起きました。再読み込みを行ってください。を表示
-      else {
-        $(".lists").before('<div class="message">予期せぬエラーが起きました。<br>再読み込みを行ってください。</div>');
-      }
-    });
+    // 成功時の処理関数を呼び出す
+    .done(ajaxSuccess)
+    // 失敗時の処理関数を呼び出す
+    .fail(ajaxError);
   });
-
   //リセットボタンをクリックした時
   $(".reset-btn").on("click", function () {
     //変数pageCountの値を1にリセットします。これにより、次回の検索が最初のページから始まるようにします。
