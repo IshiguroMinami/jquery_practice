@@ -54,13 +54,6 @@ $(function () {
     //予期せぬエラーが起きました。再読み込みを行ってください。を表示
     $(".lists").before(`<div class="message">${message}</div>`);
   }
-  //成功時の処理関数
-  function ajaxSuccess(response) {
-    // 必要なデータを取得、存在しなければ空配列
-    const items = response["@graph"][0]?.items || [];
-    // 結果を表示
-    displayResults(items);
-  }
   //pageCountは現在のページ番号を保持するための変数
   let pageCount = 1;
   //lastSearchWordは最後に検索したワードを保持するための変数
@@ -91,7 +84,12 @@ $(function () {
       method: "GET"
     })
     // 成功時の処理関数を呼び出す
-    .done(ajaxSuccess)
+    .done(function(response){
+      // 必要なデータを取得、存在しなければ空配列
+      const items = response["@graph"][0]?.items || [];
+      // 結果を表示
+      displayResults(items);
+    })
     // 失敗時の処理関数を呼び出す
     .fail(ajaxError);
   });
@@ -109,3 +107,21 @@ $(function () {
     $("#search-input").val("");
   });
 });
+
+
+/*done、fail内で関数を実行しています。
+実行側でで引数を渡していないにも関わらずそれぞれの関数では引数を受け取れています。
+なぜそのように実装したのか説明してください。
+実装、回答で参考にしたサイトなどあれば共有お願いします。*/
+
+
+//jQuery の Ajax メソッドの仕組みに基づいて動作しているからです。
+//.done(): リクエスト成功時のレスポンスデータが自動的に渡されます。
+//.fail(): リクエスト失敗時のエラー情報（例: ステータスコード、エラーメッセージ）が自動的に渡されます。
+
+/*「成功時のデータ」や「失敗時のエラー情報」を自分で引き渡す必要がないため、コードがシンプルになり、バグが減ります。
+Ajax リクエストは非同期で実行され、結果（成功・失敗）が戻ってきたときに適切なデータを引数として渡す必要があります。
+この引数は、開発者が明示的に渡すのではなく、jQuery が内部で管理・供給します。*/
+
+//参考にしたサイト
+//https://qiita.com/katsunory/items/9bf9ee49ee5c08bf2b3d
